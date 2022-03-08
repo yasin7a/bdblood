@@ -20,6 +20,9 @@
   .color3 {
     color: #212121;
   }
+  .color4 {
+    color: #7b7a7a;
+  }
   .menuitem svg {
     font-size: 1.1rem;
   }
@@ -165,11 +168,16 @@
     width: 18px;
     height: 18px;
   }
+  .blood-grp {
+    color: #fff;
+    padding: 8px 7px;
+ 
 
+  }
   .blood-group input[type="radio"] + label {
     background: rgba(52, 113, 247, 0.94);
     color: #fff;
-    padding: 7px 4px;
+    padding: 8px 7px;
     border-radius: 100px;
     width: 40px;
     height: 40px;
@@ -181,9 +189,55 @@
     user-select: none;
   }
   .blood-group input[type="radio"]:checked + label {
-    transition:  transform 250ms cubic-bezier(0,.86,.9,1.36);
+    transition: transform 250ms cubic-bezier(0, 0.86, 0.9, 1.36);
 
     background: #0e4191;
-    transform:scale(1.1)
+    transform: scale(1.1);
+  }
+
+  .selectbox {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 4rem;
+  }
+
+  .selectbox::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-top: -6px;
+    right: 0.4rem;
+    width: 0;
+    height: 0;
+    border: solid black;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+  }
+
+  select {
+    border: 1px solid #aeabab;
+    border-radius: 0.25rem;
+    padding: 0 18px;
+    padding-left: 15px;
+    display: flex;
+    background-color: #fff;
+    outline: 0;
+    cursor: pointer;
+    appearance: none;
+    font-size: 14px;
+    padding-left: 4px;
+  }
+  select option {
+    background: #fff;
+    border: 0px;
+  }
+
+  select option:focus {
+    background: green;
   }
 }

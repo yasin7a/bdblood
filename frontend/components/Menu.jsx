@@ -38,7 +38,7 @@ const Menu = () => {
         </div>
         {/*  */}
         <div
-          className={`menubar w-full fixed top-0 left-0 bottom-0 h-screen ease-out ${
+          className={`menubar z-50 w-full fixed top-0 left-0 bottom-0 h-screen ease-out ${
             !toggle && "pointer-events-none"
           }`}
         >
