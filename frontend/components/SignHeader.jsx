@@ -12,7 +12,7 @@ const SignHeader = () => {
 
       <div className="p-2">
         <div className="nav-sing p-2 max-w-sm bg-white mx-auto mt-8 rounded">
-          <div className="bg-white flex justify-between text-center color3">
+          <div className="bg-white flex justify-between text-center color3 font-medium color3">
             <div className="w-2/4">
               <Link href="/login">
                 <a

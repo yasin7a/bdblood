@@ -43,7 +43,7 @@ const Profile = () => {
                   </div>
 
                   <div className="sign-out">
-                    <button  className="call text-gray-600 mt-8 mx-auto flex items-center px-2 py-1 gap-1.5 rounded border border-gray-400 hover:bg-gray-200">
+                    <button className="call text-gray-600 mt-8 mx-auto flex items-center px-2 py-1 gap-1.5 rounded border border-gray-400 hover:bg-gray-200">
                       <span>Sign Out</span>
                     </button>
                   </div>

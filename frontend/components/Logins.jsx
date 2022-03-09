@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import SignHeader from "./SignHeader";
-
+import Link from "next/link";
 const Logins = () => {
   const router = useRouter();
   const [input, setInput] = React.useState({
@@ -42,8 +42,10 @@ const Logins = () => {
   return (
     <>
       <SignHeader />
-      <div className="p-4 max-w-sm mx-auto">
-        <h4 className="text-center color3 mb-3">Login as a Blood Donor</h4>
+      <div className="p-4 max-w-sm mx-auto animte-flip ">
+        <h4 className="text-center color3 font-medium mb-3">
+          Login as a Blood Donor
+        </h4>
         <div className="login">
           <form onSubmit={loginUser}>
             <div className="input-control">
@@ -83,15 +85,25 @@ const Logins = () => {
                 Enter Password
               </label>
             </div>
+            <Link href="/forgot">
+              <a className=" text-[15px] color3 mt-1 block text-right hover:underline">
+                Forgot Password?
+              </a>
+            </Link>
 
-            <button
-              type="submit"
-              className="singBtn"
-            >
+            <button type="submit" className="singBtn">
               Login
             </button>
           </form>
         </div>
+
+        <p className=" text-[1rem] color3 mt-5 block text-center">
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
+          Don't have any account?
+          <Link href="/register">
+            <a className="hover:underline"> Register</a>
+          </Link>
+        </p>
       </div>
     </>
   );
