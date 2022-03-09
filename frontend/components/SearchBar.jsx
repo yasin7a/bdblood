@@ -7,7 +7,7 @@ const SearchBar = () => {
         type="text"
         name="search"
         placeholder="Search Location..."
-        className="focus:outline-none focus-visible:ring-2 rounded px-2 w-19/12"
+        className="focus:outline-none focus-visible:ring-2 rounded px-2 w-[80%]"
       />
     </>
   );

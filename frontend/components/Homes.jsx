@@ -4,11 +4,11 @@ import Map from "./Map";
 const Homes = () => {
   return (
     <>
-      <div className="w-full flex h-screen">
-        <div className="mapbar w-1/4  h-full p-2">
+      <div className="w-full flex h-screen overflow-hidden">
+        <div className="mapbar w-[28%]  h-full p-2">
           <MapBar />
         </div>
-        <div className="map w-3/4 bg-orange-300 h-full">
+        <div className="map w-[72%] bg-orange-300 h-full">
           <Map />
         </div>
       </div>

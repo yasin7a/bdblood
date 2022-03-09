@@ -171,8 +171,6 @@
   .blood-grp {
     color: #fff;
     padding: 8px 7px;
- 
-
   }
   .blood-group input[type="radio"] + label {
     background: rgba(52, 113, 247, 0.94);
@@ -208,8 +206,8 @@
     content: "";
     position: absolute;
     top: 50%;
-    margin-top: -6px;
-    right: 0.4rem;
+    margin-top: -5px;
+    right: 0.5rem;
     width: 0;
     height: 0;
     border: solid black;
@@ -239,5 +237,82 @@
 
   select option:focus {
     background: green;
+  }
+
+  .hidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hidebar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .accordion-item {
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(1, 0, 1, 0);
+    height: auto;
+    max-height: 9999px;
+  }
+  .accordion-item.collapsed {
+    max-height: 0;
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+  }
+
+  .switch::before,
+  .switch::before {
+    background: #bdbdbd;
+  }
+  input:checked + .switch,
+  input:checked + .switch {
+    background: rgba(128, 203, 196, 0.5);
+  }
+  input:checked + .switch::before,
+  input:checked + .switch::before {
+    background: #80cbc4;
+  }
+  input:checked + .switch:active::before,
+  input:checked + .switch:active::before {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.28),
+      0 0 0 1.25rem rgba(128, 203, 196, 0.2);
+  }
+
+  .switch {
+    display: inline-block;
+    position: relative;
+    width: 2.5rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    background: rgba(0, 0, 0, 0.26);
+    transition: background 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    vertical-align: middle;
+    cursor: pointer;
+  }
+  .switch::before {
+    content: "";
+    position: absolute;
+    top: -0.25rem;
+    left: -0.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #fafafa;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.28);
+    border-radius: 50%;
+    transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+      background 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .switch:active::before {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.28),
+      0 0 0 1.25rem rgba(128, 128, 128, 0.1);
+  }
+  input:checked + .switch {
+    background: rgba(39, 129, 208, 0.5);
+  }
+  input:checked + .switch::before {
+    left: 1.25rem;
+    background: #1491ff;
+  }
+  input:checked + .switch:active::before {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.28), 0 0 0 1.25rem rgba(74, 127, 195, 0.2);
   }
 }
