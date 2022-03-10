@@ -85,11 +85,11 @@ const Logins = () => {
                 Enter Password
               </label>
             </div>
-            <Link href="/forgot">
+            {/* <Link href="/forgot">
               <a className=" text-[15px] color3 mt-1 block text-right hover:underline">
                 Forgot Password?
               </a>
-            </Link>
+            </Link> */}
 
             <button type="submit" className="singBtn">
               Login

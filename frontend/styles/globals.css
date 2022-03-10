@@ -198,10 +198,6 @@
   .selectbox {
     position: relative;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 4rem;
   }
 
   .selectbox::before {
@@ -220,25 +216,15 @@
   }
 
   select {
+    width: 3.4rem;
     border: 1px solid #aeabab;
     border-radius: 0.25rem;
-    padding: 0 18px;
-    padding-left: 15px;
-    display: flex;
     background-color: #fff;
     outline: 0;
     cursor: pointer;
     appearance: none;
     font-size: 14px;
     padding-left: 4px;
-  }
-  select option {
-    background: #fff;
-    border: 0px;
-  }
-
-  select option:focus {
-    background: green;
   }
 
   .hidebar::-webkit-scrollbar {
@@ -320,7 +306,7 @@
   }
 
   .animte-flip {
-    animation: flip .5s cubic-bezier(0, 0, 0.2, 1) forwards;
+    animation: flip 0.5s cubic-bezier(0, 0, 0.2, 1) forwards;
   }
   @keyframes flip {
     0% {
@@ -333,4 +319,6 @@
       transform: translateY(0);
     }
   }
+
+
 }

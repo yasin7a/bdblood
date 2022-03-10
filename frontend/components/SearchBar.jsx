@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const SearchBar = () => {
+  // const geocoderContainerRef = useRef();
+
   return (
     <>
-      <input
-        type="text"
-        name="search"
-        placeholder="Search Location..."
-        className="focus:outline-none focus-visible:ring-2 rounded px-2 w-[80%]"
-      />
+      <div id="geocoder" className="geocoder">
+        <div
+          // ref={geocoderContainerRef}
+          
+        />
+      </div>
     </>
   );
 };
