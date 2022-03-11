@@ -1,20 +1,14 @@
-import React from "react";
-import { useRouter } from "next/router";
-import SignHeader from "../components/SignHeader";
+import React, { useState, useEffect } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "../node_modules/react-simple-captcha/react-simple-captcha";
-
-const Registers = () => {
-  const router = useRouter();
-  const [input, setInput] = React.useState({
+const Requests = () => {
+  const [input, setInput] = useState({
     name: "",
-    email: "",
     phone: "",
-    password: "",
-    confirmPassword: "",
+    description: "",
     gender: "male",
     bloodgp: "",
   });
@@ -27,50 +21,23 @@ const Registers = () => {
       };
     });
   };
-  const registerUser = async (event) => {
-    event.preventDefault();
-    const { name, email, phone, password, gender, bloodgp } = input;
-    // try {
-    //   const res = await fetch(
-    //     `${process.env.NEXT_PUBLIC_SERVER}/api/register`,
-    //     {
-    //       body: JSON.stringify({
-    //         name,
-    //         email,
-    //         phone,
-    //         password,
-    //         gender,
-    //         bloodgp,
-    //       }),
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       method: "POST",
-    //     }
-    //   );
 
-    //   const result = await res.json();
-    //   router.push("/login");
-    //   console.log(result);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // if (validateCaptcha()) {
-    // }
+  const Requestsbld = async (event) => {
+    event.preventDefault();
+    const { name, phone, description, gender, bloodgp } = input;
   };
-  React.useEffect(() => {
+
+  useEffect(() => {
     loadCaptchaEnginge(4);
   }, []);
-
   return (
     <>
-      <SignHeader />
       <div className="p-4 max-w-sm mx-auto animte-flip">
-        <h4 className="text-center color3 font-medium mb-3">
-          Register as a Blood Donor
+        <h4 className="text-center color3 font-medium mb-3 text-xl">
+          Request For Blood
         </h4>
         <div className="register">
-          <form onSubmit={registerUser}>
+          <form onSubmit={Requestsbld}>
             <div className="input-control">
               <input
                 type="text"
@@ -85,20 +52,7 @@ const Registers = () => {
                 Enter name
               </label>
             </div>
-            <div className="input-control">
-              <input
-                type="email"
-                name="email"
-                className="input-field"
-                value={input.email}
-                onChange={changeHandler}
-                placeholder="email"
-                autoComplete="off"
-              />
-              <label htmlFor="email" className="input-label">
-                Enter email
-              </label>
-            </div>
+
             <div className="input-control">
               <input
                 type="text"
@@ -118,34 +72,21 @@ const Registers = () => {
                 {input?.phone.length}/11
               </span>
             </div>
-            <div className="input-control">
+            <div className="input-control "  style={{height: "5rem"}}>
               <input
-                type="password"
-                name="password"
+              style={{paddingBottom: "2.7rem"}}
+                type="text"
+                name="description"
                 className="input-field"
-                value={input.password}
+                value={input.description}
                 onChange={changeHandler}
-                placeholder="password"
+                placeholder="description"
+                autoComplete="off"
               />
-              <label htmlFor="password" className="input-label">
-                Enter Password
+              <label htmlFor="description" className="input-label">
+                Why you need blood
               </label>
             </div>
-
-            <div className="input-control">
-              <input
-                type="password"
-                name="confirmPassword"
-                className="input-field"
-                value={input.confirmPassword}
-                onChange={changeHandler}
-                placeholder="confirmPassword"
-              />
-              <label htmlFor="confirmPassword" className="input-label">
-                Enter Confirm Password
-              </label>
-            </div>
-
             <label className="font-medium text-[1rem] color3 mt-3 block">
               Blood Type
             </label>
@@ -272,7 +213,7 @@ const Registers = () => {
             </div>
 
             <button type="submit" className="singBtn">
-              Register
+              Request
             </button>
           </form>
         </div>
@@ -281,4 +222,4 @@ const Registers = () => {
   );
 };
 
-export default Registers;
+export default Requests;

@@ -7,6 +7,7 @@ import {
 } from "react-icons/ai";
 import { MdOutlineSwitchAccount } from "react-icons/md";
 import { FiMapPin, FiLogOut } from "react-icons/fi";
+import {FaHandHoldingWater} from "react-icons/fa"
 
 const Menu = () => {
   let [toggle, setToggle] = useState(false);
@@ -100,6 +101,12 @@ const Menu = () => {
                     <AiOutlineLogin />
                     <Link href="/login">
                       <a>donor login</a>
+                    </Link>
+                  </li>
+                  <li className="menuitem">
+                    <FaHandHoldingWater />
+                    <Link href="/request">
+                      <a>request for blood</a>
                     </Link>
                   </li>
                   <li className="menuitem">

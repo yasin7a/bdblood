@@ -4,7 +4,6 @@
 .mapboxgl-ctrl-geocoder *:after,
 .mapboxgl-ctrl-geocoder *:before {
   box-sizing: border-box;
-
 }
 #geocoder {
   width: 80%;
@@ -252,3 +251,16 @@ a.mapboxgl-ctrl-logo {
   position: static !important;
 }
 
+.mapboxgl-popup-close-button {
+  right: 5px !important;
+  top: -5px !important;
+  font-size: 1.7rem;
+}
+.mapboxgl-popup-close-button:hover {
+  background-color: transparent !important;
+  color: #757575;
+  height: 27px !important; 
+}
+.mapboxgl-popup{ 
+  z-index: 1;
+}
