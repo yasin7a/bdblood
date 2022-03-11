@@ -3,14 +3,14 @@ import React, { useState, useRef, useCallback } from "react";
 import MapGL, { GeolocateControl, FullscreenControl } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 
-const Maps = () => {
+const Maps = ({geocoderContainerRef}) => {
   const [viewport, setViewport] = useState({
     latitude: 37.7577,
     longitude: -122.4376,
 
     zoom: 14,
   });
-  const geocoderContainerRef = useRef();
+  // const geocoderContainerRef = useRef();
   const mapRef = useRef();
   const handleViewportChange = useCallback(
     (newViewport) => setViewport(newViewport),
@@ -31,10 +31,6 @@ const Maps = () => {
 
   return (
     <>
-      <div
-        ref={geocoderContainerRef}
-        style={{ position: "absolute", top: 20, left: 20, zIndex: 1 }}
-      />
       <MapGL
         ref={mapRef}
         {...viewport}

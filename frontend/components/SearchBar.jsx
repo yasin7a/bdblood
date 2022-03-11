@@ -1,15 +1,10 @@
 import React, { useRef } from "react";
 
-const SearchBar = () => {
-  // const geocoderContainerRef = useRef();
-
+const SearchBar = ({ geocoderContainerRef }) => {
   return (
     <>
       <div id="geocoder" className="geocoder">
-        <div
-          // ref={geocoderContainerRef}
-          
-        />
+        <div ref={geocoderContainerRef} />
       </div>
     </>
   );

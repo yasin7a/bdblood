@@ -3,7 +3,7 @@ import Header from "./Header";
 
 import demoitem from "../data/demoitem";
 import DonorList from "./DonorList";
-const MapBar = () => {
+const MapBar = ({ geocoderContainerRef }) => {
   const [select, SetSelect] = React.useState("");
 
   let selectHandler = (e) => {
@@ -11,7 +11,7 @@ const MapBar = () => {
   };
   return (
     <>
-      <Header />
+      <Header geocoderContainerRef={geocoderContainerRef} />
 
       <div className="flex justify-between items-center mt-7 mb-2">
         <div className="header color4 font-medium">

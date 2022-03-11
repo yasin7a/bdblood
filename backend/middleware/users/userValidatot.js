@@ -13,6 +13,20 @@ const addUserValidators = [
     .isAlpha("en-US", { ignore: " -" })
     .withMessage("Name must not contain anything other than alphabet")
     .trim(),
+  check("email")
+    .isEmail()
+    .withMessage("Invalid email address")
+    .trim()
+    .custom(async (value) => {
+      try {
+        const user = await User.findOne({ email: value });
+        if (user) {
+          throw createError("Email already is use!");
+        }
+      } catch (err) {
+        throw createError(err.message);
+      }
+    }),
   check("phone")
     .isMobilePhone("bn-BD")
     .withMessage("Mobile number must be a valid Bangladeshi phone number")
@@ -37,7 +51,6 @@ const addUserValidators = [
   }),
   check("gender").notEmpty().withMessage("Gender is Requiered"),
   check("bloodgp").notEmpty().withMessage("Blood Group is Requiered"),
-
 ];
 
 const addUserValidationHandler = function (req, res, next) {

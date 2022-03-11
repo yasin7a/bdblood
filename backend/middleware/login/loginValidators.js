@@ -5,7 +5,7 @@ const doLoginValidators = [
     .isLength({
       min: 1,
     })
-    .withMessage("Number or Name is required"),
+    .withMessage("Email or Number is required"),
   check("password").isLength({ min: 1 }).withMessage("Password is required"),
 ];
 
