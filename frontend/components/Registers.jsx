@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import SignHeader from "../components/SignHeader";
+import toast, { Toaster } from "react-hot-toast";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -9,7 +10,15 @@ import {
 
 const Registers = () => {
   const router = useRouter();
-  const [input, setInput] = React.useState({
+
+  const [lcn, setLnc] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const lcnRef = useRef();
+  const latRef = useRef();
+  const lngRef = useRef();
+
+  const [input, setInput] = useState({
     name: "",
     email: "",
     phone: "",
@@ -30,17 +39,26 @@ const Registers = () => {
   const registerUser = async (event) => {
     event.preventDefault();
     const { name, email, phone, password, gender, bloodgp } = input;
+    console.log(
+      input,
+      lcnRef.current.value,
+      latRef.current.value,
+      lngRef.current.value
+    );
     // try {
     //   const res = await fetch(
     //     `${process.env.NEXT_PUBLIC_SERVER}/api/register`,
     //     {
     //       body: JSON.stringify({
     //         name,
-    //         email,
-    //         phone,
-    //         password,
-    //         gender,
-    //         bloodgp,
+    // email,
+    // phone,
+    // password,
+    // gender,
+    // bloodgp,
+    // location,
+    // latitude,
+    // longitude,
     //       }),
     //       headers: {
     //         "Content-Type": "application/json",
@@ -59,11 +77,26 @@ const Registers = () => {
     // }
   };
   React.useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        let res = await fetch(
+          `https://us1.locationiq.com/v1/reverse.php?key=pk.afa54d4ce9914b59416fe7816153d8b3&lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
+        );
+        let data = await res.json();
+        setLnc(data.display_name);
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+        toast.success("Location found Successfully");
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+    // Captcha
     loadCaptchaEnginge(4);
   }, []);
-
   return (
     <>
+      <Toaster />
       <SignHeader />
       <div className="p-4 max-w-sm mx-auto animte-flip">
         <h4 className="text-center color3 font-medium mb-3">
@@ -143,6 +176,20 @@ const Registers = () => {
               />
               <label htmlFor="confirmPassword" className="input-label">
                 Enter Confirm Password
+              </label>
+            </div>
+
+            <div className="input-control">
+              <input
+                type="text"
+                name="location"
+                className="input-field"
+                defaultValue={lcn}
+                ref={lcnRef}
+                placeholder="location"
+              />
+              <label htmlFor="location" className="input-label">
+                Your Location
               </label>
             </div>
 
@@ -270,6 +317,21 @@ const Registers = () => {
                 Enter Captcha
               </label>
             </div>
+
+            <input
+              type="text"
+              name="latitude"
+              hidden
+              defaultValue={lat}
+              ref={latRef}
+            />
+            <input
+              type="text"
+              name="longitude"
+              hidden
+              defaultValue={lng}
+              ref={lngRef}
+            />
 
             <button type="submit" className="singBtn">
               Register
