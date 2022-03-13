@@ -1,19 +1,21 @@
 import React from "react";
-import Header from "./Header";
-
-import demoitem from "../data/demoitem";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import DonorList from "./DonorList";
-const MapBar = ({ geocoderContainerRef }) => {
-  const [select, SetSelect] = React.useState("");
 
-  let selectHandler = (e) => {
-    SetSelect(e.target.value);
-  };
+const MapBar = ({ donorData, selecBloodtHandler, handleToggleList,toggleIcon }) => {
   return (
     <>
-      <Header geocoderContainerRef={geocoderContainerRef} />
-
-      <div className="flex justify-between items-center mt-7 mb-2">
+      <div
+        className="absolute right-3 top-[-1.6rem] bg-gray-200 rounded px-3  border border-slate-300 border-b-0 rounded-br-none rounded-bl-none text-[1.6rem] color4 cursor-pointer"
+        onClick={handleToggleList}
+      >
+        <MdOutlineKeyboardArrowDown
+          className={`transition-transform duration-300 ease-out ${
+            toggleIcon ? "rotate-180" : "rotate-0"
+          }`}
+        />
+      </div>
+      <div className="flex justify-between items-center mt-2 mb-2">
         <div className="header color4 font-medium">
           <h3 className=" color4 font-medium">Donor List</h3>
         </div>
@@ -22,7 +24,7 @@ const MapBar = ({ geocoderContainerRef }) => {
             <select
               name="selectbox"
               className="font-Roboto text-gray-700 font-normal"
-              onChange={selectHandler}
+              onChange={selecBloodtHandler}
             >
               <option value="A+">A+</option>
               <option value="A−">A−</option>
@@ -36,14 +38,18 @@ const MapBar = ({ geocoderContainerRef }) => {
           </div>
         </div>
       </div>
-      <div className="h-full overflow-y-scroll py-1 hidebar">
-        {demoitem.map((donor, i) => {
-          return (
-            <div key={i}>
-              <DonorList donor={donor} />
-            </div>
-          );
-        })}
+      <div className="h-[25rem] overflow-y-scroll py-1 hidebar">
+        {donorData?.length === 0 ? (
+          <div>Loading...</div>
+        ) : (
+          donorData?.map((donor, i) => {
+            return (
+              <div key={i}>
+                <DonorList donor={donor} />
+              </div>
+            );
+          })
+        )}
       </div>
     </>
   );

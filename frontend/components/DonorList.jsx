@@ -40,7 +40,7 @@ const DonorList = ({ donor }) => {
         </div>
       </div>
       <div
-        className="show-list flex justify-start items-center bg-white shadow-[0_5px_10px_-8px_rgba(0,0,0,0.3)] p-2 rounded gap-5 mb-3 capitalize"
+        className="show-list flex justify-start items-center bg-white shadow-[0_5px_10px_-8px_rgba(0,0,0,0.3)] p-2 rounded-sm gap-5 mb-3 capitalize rounded-tr-none rounded-tl-none"
         ref={ref}
       >
         <span className="bg-gray-400 text-gray-700 text-center w-[40px] h-[40px] rounded-full py-[8px] px-[7px] select-none ">

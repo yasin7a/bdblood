@@ -7,7 +7,7 @@ import {
 } from "react-icons/ai";
 import { MdOutlineSwitchAccount } from "react-icons/md";
 import { FiMapPin, FiLogOut } from "react-icons/fi";
-import {FaHandHoldingWater} from "react-icons/fa"
+import { FaHandHoldingWater } from "react-icons/fa";
 
 const Menu = () => {
   let [toggle, setToggle] = useState(false);
@@ -111,7 +111,7 @@ const Menu = () => {
                   </li>
                   <li className="menuitem">
                     <FiMapPin />
-                    <button>Map</button>
+                    <button onClick={handlecut}>Map</button>
                   </li>
                   <li className="menuitem">
                     <AiOutlineOrderedList />

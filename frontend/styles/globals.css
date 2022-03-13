@@ -9,6 +9,7 @@
   .singBtn {
     @apply w-full bg-blue-600 hover:bg-blue-700 tracking-widest py-3 rounded mt-6 text-white font-medium;
   }
+ 
 }
 @layer utilities {
   .color1 {
@@ -319,6 +320,4 @@
       transform: translateY(0);
     }
   }
-
-
 }
