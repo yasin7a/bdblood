@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import SignHeader from "../components/SignHeader";
 import toast from "react-hot-toast";
-
+import { BiCurrentLocation } from "react-icons/bi";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -15,11 +15,13 @@ const Registers = () => {
   const [lcn, setLnc] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
+  const [lcnLoad, setLcnLoad] = useState(false);
   const [error, setError] = useState(false);
   const lcnRef = useRef();
   const latRef = useRef();
   const lngRef = useRef();
   const user_captcha = useRef("");
+  const lcnBtn = useRef(null);
   const [input, setInput] = useState({
     name: "",
     email: "",
@@ -85,6 +87,7 @@ const Registers = () => {
       if (result.errors) {
         setError(result.errors);
         console.log(result.errors);
+        console.log(result);
       } else {
         router.push("/");
       }
@@ -92,29 +95,42 @@ const Registers = () => {
       console.log(error);
     }
   };
-  React.useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        try {
-          let res = await fetch(
-            `https://us1.locationiq.com/v1/reverse.php?key=${process.env.NEXT_PUBLIC_REVERSE_TOKEN}&lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
-          );
-          let data = await res.json();
-          setLnc(data.display_name);
-          setLat(position.coords.latitude);
-          setLng(position.coords.longitude);
-          toast.success("Location found Successfully");
-        } catch (error) {
-          alert(error);
-        }
-      });
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
+  useEffect(() => {
+    let lcnBtns = lcnBtn.current;
+    setLcnLoad(true);
+
+    let callLcn = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          try {
+            let res = await fetch(
+              `https://us1.locationiq.com/v1/reverse.php?key=${process.env.NEXT_PUBLIC_REVERSE_TOKEN}&lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
+            );
+            let data = await res.json();
+            setLnc(data.display_name);
+            setLat(position.coords.latitude);
+            setLng(position.coords.longitude);
+            setLcnLoad(false);
+            toast.success("Location found Successfully");
+          } catch (error) {
+            alert(error);
+          }
+        });
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    };
+
+    lcnBtns.addEventListener("click", callLcn);
+
+    return () => {
+      lcnBtns.addEventListener("click", callLcn);
+    };
+  }, []);
+  useEffect(() => {
     // Captcha
     loadCaptchaEnginge(4);
   }, []);
-
   return (
     <>
       <SignHeader />
@@ -209,10 +225,21 @@ const Registers = () => {
                 defaultValue={lcn}
                 ref={lcnRef}
                 placeholder="location"
+                readOnly
               />
+
               <label htmlFor="location" className="input-label">
                 {error.location ? error.location?.msg : "Your Location"}
               </label>
+              <button
+                type="button"
+                ref={lcnBtn}
+                className={`absolute top-2/4 -right-3 -translate-x-1/2 -translate-y-1/2 text-xl p-2 bg-slate-200 hover:text-blue-600 ${
+                  lcnLoad ? "" : "text-blue-400"
+                }`}
+              >
+                <BiCurrentLocation />
+              </button>
             </div>
 
             <label className="font-medium text-[1rem] color3 mt-3 block">
