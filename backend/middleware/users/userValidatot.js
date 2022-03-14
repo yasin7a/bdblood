@@ -1,5 +1,5 @@
 // external imports
-const { check, validationResult } = require("express-validator");
+const { check, body, validationResult } = require("express-validator");
 const createError = require("http-errors");
 
 // internal imports
@@ -51,6 +51,28 @@ const addUserValidators = [
   }),
   check("gender").notEmpty().withMessage("Gender is Requiered"),
   check("bloodgp").notEmpty().withMessage("Blood Group is Requiered"),
+
+  check("location")
+    .isLength({ min: 5 })
+    .withMessage("Location must contain more than 5 alphabet")
+    .notEmpty()
+    .withMessage("Location is Requiered")
+    .trim(),
+  check("latitude")
+    .isLength({ min: 3 })
+    .withMessage("Latitude must contain more than 3 alphabet")
+    .trim(),
+  check("longitude")
+    .isLength({ min: 3 })
+    .withMessage("Longitude must contain more than 3 alphabet")
+    .trim(),
+  check("user_captcha").custom((value) => {
+    const captcha = ["trueCaptcha"];
+    if (!captcha.includes(value)) {
+      throw createError("Enter valid captcha");
+    }
+    return true;
+  }),
 ];
 
 const addUserValidationHandler = function (req, res, next) {

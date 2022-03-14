@@ -14,10 +14,12 @@ const Registers = () => {
   const [lcn, setLnc] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
+  // const [cpcha, setCpcha] = useState("");
+  const [error, setError] = useState(false);
   const lcnRef = useRef();
   const latRef = useRef();
   const lngRef = useRef();
-
+  const user_captcha = useRef("");
   const [input, setInput] = useState({
     name: "",
     email: "",
@@ -26,6 +28,7 @@ const Registers = () => {
     confirmPassword: "",
     gender: "male",
     bloodgp: "",
+    user_captcha_input: "",
   });
 
   const changeHandler = (event) => {
@@ -38,55 +41,72 @@ const Registers = () => {
   };
   const registerUser = async (event) => {
     event.preventDefault();
-    const { name, email, phone, password, gender, bloodgp } = input;
-    console.log(
-      input,
-      lcnRef.current.value,
-      latRef.current.value,
-      lngRef.current.value
-    );
-    // try {
-    //   const res = await fetch(
-    //     `${process.env.NEXT_PUBLIC_SERVER}/api/register`,
-    //     {
-    //       body: JSON.stringify({
-    //         name,
-    // email,
-    // phone,
-    // password,
-    // gender,
-    // bloodgp,
-    // location,
-    // latitude,
-    // longitude,
-    //       }),
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       method: "POST",
-    //     }
-    //   );
+    const {
+      name,
+      email,
+      phone,
+      password,
+      confirmPassword,
+      gender,
+      bloodgp,
+      user_captcha_input,
+    } = input;
+    if (validateCaptcha(user_captcha_input)) {
+      user_captcha.current.value = "trueCaptcha";
+    } else {
+      user_captcha.current.value = "";
+    }
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER}/api/register`,
+        {
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            password,
+            confirmPassword,
+            gender,
+            bloodgp,
+            location: lcnRef.current.value,
+            latitude: latRef.current.value,
+            longitude: lngRef.current.value,
+            user_captcha: user_captcha.current.value,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+        }
+      );
 
-    //   const result = await res.json();
-    //   router.push("/login");
-    //   console.log(result);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // if (validateCaptcha()) {
-    // }
+      const result = await res.json();
+
+      if (result.errors) {
+        setError(result.errors);
+        console.log(result.errors);
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   React.useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        let res = await fetch(
-          `https://us1.locationiq.com/v1/reverse.php?key=pk.afa54d4ce9914b59416fe7816153d8b3&lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
-        );
-        let data = await res.json();
-        setLnc(data.display_name);
-        setLat(position.coords.latitude);
-        setLng(position.coords.longitude);
-        toast.success("Location found Successfully");
+        try {
+          let res = await fetch(
+            `https://us1.locationiq.com/v1/reverse.php?key=${process.env.NEXT_PUBLIC_REVERSE_TOKEN}&lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
+          );
+          let data = await res.json();
+          setLnc(data.display_name);
+          setLat(position.coords.latitude);
+          setLng(position.coords.longitude);
+          toast.success("Location found Successfully");
+        } catch (error) {
+          alert(error);
+        }
       });
     } else {
       alert("Geolocation is not supported by this browser.");
@@ -94,6 +114,7 @@ const Registers = () => {
     // Captcha
     loadCaptchaEnginge(4);
   }, []);
+
   return (
     <>
       <Toaster />
@@ -115,7 +136,7 @@ const Registers = () => {
                 autoComplete="off"
               />
               <label htmlFor="name" className="input-label">
-                Enter name
+                {error.name ? error.name?.msg : "Enter Name"}
               </label>
             </div>
             <div className="input-control">
@@ -129,7 +150,7 @@ const Registers = () => {
                 autoComplete="off"
               />
               <label htmlFor="email" className="input-label">
-                Enter email
+                {error.email ? error.email?.msg : "Enter Email"}
               </label>
             </div>
             <div className="input-control">
@@ -145,7 +166,7 @@ const Registers = () => {
               />
 
               <label htmlFor="phone" className="input-label">
-                Enter Phone
+                {error.phone ? error.phone?.msg : "Enter Phone"}
               </label>
               <span className="text-xs absolute right-2 bottom-1">
                 {input?.phone.length}/11
@@ -161,7 +182,7 @@ const Registers = () => {
                 placeholder="password"
               />
               <label htmlFor="password" className="input-label">
-                Enter Password
+                {error.password ? error.password?.msg : "Enter Password"}
               </label>
             </div>
 
@@ -175,7 +196,9 @@ const Registers = () => {
                 placeholder="confirmPassword"
               />
               <label htmlFor="confirmPassword" className="input-label">
-                Enter Confirm Password
+                {error.confirmPassword
+                  ? error.confirmPassword?.msg
+                  : "Enter Confirm Password"}
               </label>
             </div>
 
@@ -189,12 +212,12 @@ const Registers = () => {
                 placeholder="location"
               />
               <label htmlFor="location" className="input-label">
-                Your Location
+                {error.location ? error.location?.msg : "Your Location"}
               </label>
             </div>
 
             <label className="font-medium text-[1rem] color3 mt-3 block">
-              Blood Type
+              {error.bloodgp ? error.bloodgp?.msg : "Blood Type"}
             </label>
             <div className="blood-group">
               <input
@@ -267,7 +290,7 @@ const Registers = () => {
             <div className="flex">
               <div className="gender-field ">
                 <label className="font-medium text-[1rem] color3 my-3 block">
-                  Gender
+                  {error.gender ? error.gender?.msg : "Gender"}
                 </label>
                 <div className="ml-3">
                   <input
@@ -311,10 +334,12 @@ const Registers = () => {
                 id="user_captcha_input"
                 name="user_captcha_input"
                 className="input-field"
+                value={input.user_captcha_input}
+                onChange={changeHandler}
                 placeholder="EnterCaptcha"
               />
               <label htmlFor="user_captcha_input" className="input-label">
-                Enter Captcha
+                {error.user_captcha ? error.user_captcha?.msg : "Enter Captcha"}
               </label>
             </div>
 
@@ -332,7 +357,7 @@ const Registers = () => {
               defaultValue={lng}
               ref={lngRef}
             />
-
+            <input type="text" name="user_captcha" ref={user_captcha} hidden />
             <button type="submit" className="singBtn">
               Register
             </button>
