@@ -45,9 +45,6 @@ async function login(req, res, next) {
     }
   } catch (err) {
     res.status(500).json({
-      data: {
-        username: req.body.username,
-      },
       errors: {
         common: {
           msg: err.message,

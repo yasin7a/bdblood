@@ -16,9 +16,6 @@ const doLoginValidationHandler = function (req, res, next) {
     next();
   } else {
     res.status(500).json({
-      data: {
-        username: req.body.username,
-      },
       errors: mappedErrors,
     });
   }

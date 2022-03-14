@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import SignHeader from "./SignHeader";
 import Link from "next/link";
+import toast from "react-hot-toast";
+
 const Logins = () => {
   const router = useRouter();
+  const [error, setError] = useState(false);
+
   const [input, setInput] = React.useState({
     username: "",
     password: "",
@@ -31,10 +35,18 @@ const Logins = () => {
         },
         method: "POST",
       });
-
       const result = await res.json();
-      router.push("/");
-      console.log(result);
+
+      if (result.errors) {
+        setError(result.errors);
+        if (result.errors.common) {
+          let common = Object.values(result.errors.common);
+          toast.error(common);
+        }
+        console.log();
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -57,18 +69,9 @@ const Logins = () => {
                 placeholder="username"
                 value={input.username}
                 onChange={changeHandler}
-                // style={{
-                //   borderColor: "red",
-                // }}
               />
-              <label
-                htmlFor="username"
-                className="input-label"
-                // style={{
-                //   color: "red",
-                // }}
-              >
-                Enter Email or Number
+              <label htmlFor="username" className="input-label">
+                {error.username ? error.username?.msg : "Enter Email or Number"}
               </label>
             </div>
 
@@ -82,7 +85,7 @@ const Logins = () => {
                 placeholder="password"
               />
               <label htmlFor="password" className="input-label">
-                Enter Password
+                {error.password ? error.password?.msg : "Enter Password"}
               </label>
             </div>
             <Link href="/forgot">

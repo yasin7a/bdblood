@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import SignHeader from "../components/SignHeader";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -14,7 +15,6 @@ const Registers = () => {
   const [lcn, setLnc] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
-  // const [cpcha, setCpcha] = useState("");
   const [error, setError] = useState(false);
   const lcnRef = useRef();
   const latRef = useRef();
@@ -117,7 +117,6 @@ const Registers = () => {
 
   return (
     <>
-      <Toaster />
       <SignHeader />
       <div className="p-4 max-w-sm mx-auto animte-flip">
         <h4 className="text-center color3 font-medium mb-3">
