@@ -13,10 +13,10 @@ const checkLogin = (req, res, next) => {
       req.user = userId;
       next();
     } catch (err) {
-       res.status(401).send("Unauthorized");
+      res.status(401).send("Unauthorized");
     }
   } else {
-     res.status(401).send("Unauthorized");
+    res.status(401).send("Unauthorized");
   }
 };
 

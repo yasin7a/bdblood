@@ -1,6 +1,6 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
-const Profile = () => {
+const Profile = ({ userinfo }) => {
   const [isOpen, setOpen] = React.useState(false);
   const ref2 = React.useRef();
 
@@ -24,11 +24,13 @@ const Profile = () => {
         <div className="profile-pic cursor-pointer text-2xl">
           <CgProfile onClick={handleToggle} />
         </div>
-        {true ? (
+        {userinfo ? (
           <>
             {isOpen && (
               <>
                 <div className="profile-modal p-2 bg-white shadow-md w-[15rem] h-[10rem] absolute -right-2 top-9 z-20 ">
+                  {userinfo.name}
+
                   <div className="flex gap-5">
                     <div>
                       <p className="color2 text-[14px] ">

@@ -3,10 +3,12 @@ import { useRouter } from "next/router";
 import SignHeader from "./SignHeader";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import cookie from "js-cookie";
 
 const Logins = () => {
   const router = useRouter();
   const [error, setError] = useState(false);
+  const [logLoad, setLogLoad] = useState(false);
 
   const [input, setInput] = React.useState({
     username: "",
@@ -22,8 +24,10 @@ const Logins = () => {
   };
 
   const loginUser = async (event) => {
+    setLogLoad(true);
     event.preventDefault();
     const { username, password } = input;
+
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/login`, {
         body: JSON.stringify({
@@ -43,13 +47,15 @@ const Logins = () => {
           let common = Object.values(result.errors.common);
           toast.error(common);
         }
-        console.log();
       } else {
+        cookie.set("authToken", result.authToken)
         router.push("/");
+      
       }
     } catch (error) {
       console.log(error);
     }
+    setLogLoad(false);
   };
   return (
     <>
@@ -96,11 +102,12 @@ const Logins = () => {
                   borderColor: error.password ? "red" : "",
                 }}
               />
-              <label htmlFor="password" className="input-label"
-              
-              style={{
-                color: error.password ? "red" : "",
-              }}
+              <label
+                htmlFor="password"
+                className="input-label"
+                style={{
+                  color: error.password ? "red" : "",
+                }}
               >
                 {error.password ? error.password?.msg : "Enter Password"}
               </label>
@@ -112,7 +119,7 @@ const Logins = () => {
             </Link>
 
             <button type="submit" className="singBtn">
-              Login
+              {logLoad ? "..." : "Login"}
             </button>
           </form>
         </div>

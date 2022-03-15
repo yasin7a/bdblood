@@ -8,6 +8,7 @@ import {
   LoadCanvasTemplate,
   validateCaptcha,
 } from "../node_modules/react-simple-captcha/react-simple-captcha";
+import cookie from "js-cookie";
 
 const Registers = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const Registers = () => {
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
   const [lcnLoad, setLcnLoad] = useState(false);
+  const [regLoad, setRegLoad] = useState(false);
   const [error, setError] = useState(false);
   const lcnRef = useRef();
   const latRef = useRef();
@@ -43,6 +45,8 @@ const Registers = () => {
   };
   const registerUser = async (event) => {
     event.preventDefault();
+    setRegLoad(true);
+
     const {
       name,
       email,
@@ -86,14 +90,16 @@ const Registers = () => {
 
       if (result.errors) {
         setError(result.errors);
-        console.log(result.errors);
-        console.log(result);
       } else {
+        cookie.set("authToken", result.authToken)
         router.push("/");
+    
       }
     } catch (error) {
       console.log(error);
     }
+    setRegLoad(false);
+
   };
   useEffect(() => {
     let lcnBtns = lcnBtn.current;
@@ -432,10 +438,12 @@ const Registers = () => {
                   borderColor: error.user_captcha ? "red" : "",
                 }}
               />
-              <label htmlFor="user_captcha_input" className="input-label"
-                  style={{
-                    color: error.user_captcha ? "red" : "",
-                  }}
+              <label
+                htmlFor="user_captcha_input"
+                className="input-label"
+                style={{
+                  color: error.user_captcha ? "red" : "",
+                }}
               >
                 {error.user_captcha ? error.user_captcha?.msg : "Enter Captcha"}
               </label>
@@ -457,7 +465,7 @@ const Registers = () => {
             />
             <input type="text" name="user_captcha" ref={user_captcha} hidden />
             <button type="submit" className="singBtn">
-              Register
+              {regLoad ? "..." : "Register"}
             </button>
           </form>
         </div>
