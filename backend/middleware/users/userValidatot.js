@@ -11,7 +11,7 @@ const addUserValidators = [
     .isLength({ min: 1 })
     .withMessage("Name is required")
     .isAlpha("en-US", { ignore: " -" })
-    .withMessage("Name must not contain anything other than alphabet")
+    .withMessage("No symbol or number is requiered")
     .trim(),
   check("email")
     .isEmail()
@@ -29,7 +29,7 @@ const addUserValidators = [
     }),
   check("phone")
     .isMobilePhone("bn-BD")
-    .withMessage("Mobile number must be a valid Bangladeshi phone number")
+    .withMessage("Mobile number must be BD number")
     .custom(async (value) => {
       try {
         const user = await User.findOne({ phone: value });
@@ -42,10 +42,13 @@ const addUserValidators = [
     }),
   check("password")
     .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters long"),
-  check("confirmPassword").custom((value, { req }) => {
+    .withMessage("At least 6 characters is required"),
+  check("confirmPassword")
+  .notEmpty()
+  .withMessage("Confirm password is Requiered")
+  .custom((value, { req }) => {
     if (value !== req.body.password) {
-      throw createError("Confirmation does not match password");
+      throw createError("Confirmation does not match");
     }
     return true;
   }),
@@ -53,18 +56,16 @@ const addUserValidators = [
   check("bloodgp").notEmpty().withMessage("Blood Group is Requiered"),
 
   check("location")
-    .isLength({ min: 5 })
-    .withMessage("Location must contain more than 5 alphabet")
     .notEmpty()
     .withMessage("Location is Requiered")
     .trim(),
   check("latitude")
     .isLength({ min: 3 })
-    .withMessage("Latitude must contain more than 3 alphabet")
+    .withMessage("Latitude is Requiered")
     .trim(),
   check("longitude")
     .isLength({ min: 3 })
-    .withMessage("Longitude must contain more than 3 alphabet")
+    .withMessage("Longitude is Requiered")
     .trim(),
   check("user_captcha").custom((value) => {
     const captcha = ["trueCaptcha"];

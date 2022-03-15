@@ -97,11 +97,12 @@ const Registers = () => {
   };
   useEffect(() => {
     let lcnBtns = lcnBtn.current;
-    setLcnLoad(true);
 
     let callLcn = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (position) => {
+          setLcnLoad(true);
+
           try {
             let res = await fetch(
               `https://us1.locationiq.com/v1/reverse.php?key=${process.env.NEXT_PUBLIC_REVERSE_TOKEN}&lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
@@ -149,8 +150,17 @@ const Registers = () => {
                 onChange={changeHandler}
                 placeholder="name"
                 autoComplete="off"
+                style={{
+                  borderColor: error.name ? "red" : "",
+                }}
               />
-              <label htmlFor="name" className="input-label">
+              <label
+                htmlFor="name"
+                className="input-label"
+                style={{
+                  color: error.name ? "red" : "",
+                }}
+              >
                 {error.name ? error.name?.msg : "Enter Name"}
               </label>
             </div>
@@ -163,8 +173,17 @@ const Registers = () => {
                 onChange={changeHandler}
                 placeholder="email"
                 autoComplete="off"
+                style={{
+                  borderColor: error.email ? "red" : "",
+                }}
               />
-              <label htmlFor="email" className="input-label">
+              <label
+                htmlFor="email"
+                className="input-label"
+                style={{
+                  color: error.email ? "red" : "",
+                }}
+              >
                 {error.email ? error.email?.msg : "Enter Email"}
               </label>
             </div>
@@ -178,12 +197,21 @@ const Registers = () => {
                 placeholder="phone"
                 autoComplete="off"
                 maxLength="11"
+                style={{
+                  borderColor: error.phone ? "red" : "",
+                }}
               />
 
-              <label htmlFor="phone" className="input-label">
+              <label
+                htmlFor="phone"
+                className="input-label"
+                style={{
+                  color: error.phone ? "red" : "",
+                }}
+              >
                 {error.phone ? error.phone?.msg : "Enter Phone"}
               </label>
-              <span className="text-xs absolute right-2 bottom-1">
+              <span className="text-xs absolute right-2 bottom-2">
                 {input?.phone.length}/11
               </span>
             </div>
@@ -195,8 +223,17 @@ const Registers = () => {
                 value={input.password}
                 onChange={changeHandler}
                 placeholder="password"
+                style={{
+                  borderColor: error.password ? "red" : "",
+                }}
               />
-              <label htmlFor="password" className="input-label">
+              <label
+                htmlFor="password"
+                className="input-label"
+                style={{
+                  color: error.password ? "red" : "",
+                }}
+              >
                 {error.password ? error.password?.msg : "Enter Password"}
               </label>
             </div>
@@ -209,8 +246,17 @@ const Registers = () => {
                 value={input.confirmPassword}
                 onChange={changeHandler}
                 placeholder="confirmPassword"
+                style={{
+                  borderColor: error.confirmPassword ? "red" : "",
+                }}
               />
-              <label htmlFor="confirmPassword" className="input-label">
+              <label
+                htmlFor="confirmPassword"
+                className="input-label"
+                style={{
+                  color: error.confirmPassword ? "red" : "",
+                }}
+              >
                 {error.confirmPassword
                   ? error.confirmPassword?.msg
                   : "Enter Confirm Password"}
@@ -226,23 +272,37 @@ const Registers = () => {
                 ref={lcnRef}
                 placeholder="location"
                 readOnly
+                style={{
+                  borderColor: error.location ? "red" : "",
+                }}
               />
 
-              <label htmlFor="location" className="input-label">
+              <label
+                htmlFor="location"
+                className="input-label"
+                style={{
+                  color: error.location ? "red" : "",
+                }}
+              >
                 {error.location ? error.location?.msg : "Your Location"}
               </label>
               <button
                 type="button"
                 ref={lcnBtn}
                 className={`absolute top-2/4 -right-3 -translate-x-1/2 -translate-y-1/2 text-xl p-2 bg-slate-200 hover:text-blue-600 ${
-                  lcnLoad ? "" : "text-blue-400"
+                  lcnLoad ? "text-blue-400" : ""
                 }`}
               >
                 <BiCurrentLocation />
               </button>
             </div>
 
-            <label className="font-medium text-[1rem] color3 mt-3 block">
+            <label
+              className="font-medium font14 color3 mt-3 block"
+              style={{
+                color: error.bloodgp ? "red" : "",
+              }}
+            >
               {error.bloodgp ? error.bloodgp?.msg : "Blood Type"}
             </label>
             <div className="blood-group">
@@ -315,7 +375,12 @@ const Registers = () => {
 
             <div className="flex">
               <div className="gender-field ">
-                <label className="font-medium text-[1rem] color3 my-3 block">
+                <label
+                  className="font-medium font14 color3 my-3 block"
+                  style={{
+                    color: error.gender ? "red" : "",
+                  }}
+                >
                   {error.gender ? error.gender?.msg : "Gender"}
                 </label>
                 <div className="ml-3">
@@ -341,7 +406,7 @@ const Registers = () => {
               </div>
 
               <div>
-                <label className="font-medium text-[1rem] color3 my-3 block">
+                <label className="font-medium font14 color3 my-3 block">
                   Captcha
                 </label>
                 <div className="capcha ">
@@ -363,8 +428,15 @@ const Registers = () => {
                 value={input.user_captcha_input}
                 onChange={changeHandler}
                 placeholder="EnterCaptcha"
+                style={{
+                  borderColor: error.user_captcha ? "red" : "",
+                }}
               />
-              <label htmlFor="user_captcha_input" className="input-label">
+              <label htmlFor="user_captcha_input" className="input-label"
+                  style={{
+                    color: error.user_captcha ? "red" : "",
+                  }}
+              >
                 {error.user_captcha ? error.user_captcha?.msg : "Enter Captcha"}
               </label>
             </div>

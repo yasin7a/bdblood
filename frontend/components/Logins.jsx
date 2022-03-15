@@ -69,8 +69,17 @@ const Logins = () => {
                 placeholder="username"
                 value={input.username}
                 onChange={changeHandler}
+                style={{
+                  borderColor: error.username ? "red" : "",
+                }}
               />
-              <label htmlFor="username" className="input-label">
+              <label
+                htmlFor="username"
+                className="input-label"
+                style={{
+                  color: error.username ? "red" : "",
+                }}
+              >
                 {error.username ? error.username?.msg : "Enter Email or Number"}
               </label>
             </div>
@@ -83,8 +92,16 @@ const Logins = () => {
                 value={input.password}
                 onChange={changeHandler}
                 placeholder="password"
+                style={{
+                  borderColor: error.password ? "red" : "",
+                }}
               />
-              <label htmlFor="password" className="input-label">
+              <label htmlFor="password" className="input-label"
+              
+              style={{
+                color: error.password ? "red" : "",
+              }}
+              >
                 {error.password ? error.password?.msg : "Enter Password"}
               </label>
             </div>
