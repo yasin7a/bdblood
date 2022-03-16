@@ -1,14 +1,14 @@
 const jwt = require("jsonwebtoken");
 
 const checkLogin = (req, res, next) => {
-  let cookies =
+  let cookieToken =
     Object.keys(req.signedCookies).length > 0 ? req.signedCookies : null;
   const authHeader = req.headers.authorization;
-  const token = authHeader.split(" ")[1];
+  const authToken = authHeader.split(" ")[1];
 
-  if (cookies && token) {
+  if (cookieToken && authToken) {
     try {
-      const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+      const { userId } = jwt.verify(authToken, process.env.JWT_SECRET);
 
       req.user = userId;
       next();

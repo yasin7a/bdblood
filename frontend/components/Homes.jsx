@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Header from "./Header";
 import MapBar from "./MapBar";
 import Map from "./Map";
-import axios from "axios";
 import cookie from "js-cookie";
 
 const Homes = ({ donorData }) => {
@@ -20,15 +19,18 @@ const Homes = ({ donorData }) => {
   useEffect(() => {
     try {
       const getUsers = async () => {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER}/api/login`,
-          {
-            withCredentials: true,
-            headers: { Authorization: `Bearer ${cookie.get("authToken")}` },
-          }
-        );
-        setUserInfo(res.data.donor);
-        console.log(res.data.donor);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/login`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookie.get("authToken")}`,
+          },
+          credentials: "include",
+        });
+        let data = await res.json();
+        setUserInfo(data.donor);
+        console.log(data.donor);
       };
 
       getUsers();
@@ -51,20 +53,20 @@ const Homes = ({ donorData }) => {
               toggle ? "translate-y-full" : "translate-y-0"
             }`}
           >
-            <MapBar
+            {/* <MapBar
               geocoderContainerRef={geocoderContainerRef}
               donorData={donorData}
               selecBloodtHandler={selecBloodtHandler}
               handleToggleList={handleToggleList}
               toggleIcon={toggle}
-            />
+            /> */}
           </div>
         </div>
         <div className="map w-full h-full fixed inset-0 z-0">
-          <Map
+          {/* <Map
             geocoderContainerRef={geocoderContainerRef}
             donorData={donorData}
-          />
+          /> */}
         </div>
       </div>
     </>

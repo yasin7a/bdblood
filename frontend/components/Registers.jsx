@@ -83,6 +83,7 @@ const Registers = () => {
             "Content-Type": "application/json",
           },
           method: "POST",
+          credentials: "include",
         }
       );
 
@@ -91,15 +92,13 @@ const Registers = () => {
       if (result.errors) {
         setError(result.errors);
       } else {
-        cookie.set("authToken", result.authToken)
+        cookie.set("authToken", result.authToken);
         router.push("/");
-    
       }
     } catch (error) {
       console.log(error);
     }
     setRegLoad(false);
-
   };
   useEffect(() => {
     let lcnBtns = lcnBtn.current;

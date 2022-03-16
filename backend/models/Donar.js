@@ -13,7 +13,7 @@ const donarSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    phone: {
+    number: {
       type: String,
       required: true,
       trim: true,
@@ -49,6 +49,6 @@ const donarSchema = mongoose.Schema(
   }
 );
 
-const Donar = mongoose.model("Donar", donarSchema);
+const User = mongoose.model("Donar", donarSchema);
 
-module.exports = Donar;
+module.exports = User;

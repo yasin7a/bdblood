@@ -4,7 +4,6 @@ import SignHeader from "./SignHeader";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import cookie from "js-cookie";
-
 const Logins = () => {
   const router = useRouter();
   const [error, setError] = useState(false);
@@ -38,6 +37,7 @@ const Logins = () => {
           "Content-Type": "application/json",
         },
         method: "POST",
+        credentials: "include",
       });
       const result = await res.json();
 

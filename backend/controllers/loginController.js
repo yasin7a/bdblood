@@ -9,11 +9,10 @@ const User = require("../models/Donar");
 // do login
 async function login(req, res, next) {
   try {
-    // find a user who has this email/username
+    // find a user who has this email/number
     const user = await User.findOne({
       $or: [{ email: req.body.username }, { number: req.body.username }],
     });
-
     if (user && user._id) {
       const isValidPassword = await bcrypt.compare(
         req.body.password,
@@ -28,9 +27,10 @@ async function login(req, res, next) {
         });
 
         // set cookie
-        res.cookie(process.env.COOKIE_NAME, authToken + process.env.LOGGER, {
+        res.cookie(process.env.COOKIE_NAME, authToken, {
           maxAge: process.env.JWT_EXPIRY * 1000,
           httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
           signed: true,
         });
         res.status(200).json({

@@ -27,9 +27,10 @@ async function addUser(req, res) {
       });
 
       // set cookie
-      res.cookie(process.env.COOKIE_NAME, authToken + process.env.LOGGER, {
+      res.cookie(process.env.COOKIE_NAME, authToken, {
         maxAge: process.env.JWT_EXPIRY * 1000,
         httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
         signed: true,
       });
       res.status(200).json({
