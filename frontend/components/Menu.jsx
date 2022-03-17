@@ -9,7 +9,7 @@ import { MdOutlineSwitchAccount } from "react-icons/md";
 import { FiMapPin, FiLogOut } from "react-icons/fi";
 import { FaHandHoldingWater } from "react-icons/fa";
 
-const Menu = () => {
+const Menu = ({ userinfo, logout }) => {
   let [toggle, setToggle] = useState(false);
   let handleClick = () => {
     setToggle(true);
@@ -90,19 +90,24 @@ const Menu = () => {
                       <a>home</a>
                     </Link>
                   </li>
-                  <li className="menuitem">
-                    <MdOutlineSwitchAccount />
 
-                    <Link href="/register">
-                      <a>donor registration</a>
-                    </Link>
-                  </li>
-                  <li className="menuitem">
-                    <AiOutlineLogin />
-                    <Link href="/login">
-                      <a>donor login</a>
-                    </Link>
-                  </li>
+                  {!userinfo && (
+                    <>
+                      <li className="menuitem">
+                        <MdOutlineSwitchAccount />
+                        <Link href="/register">
+                          <a>donor registration</a>
+                        </Link>
+                      </li>
+                      <li className="menuitem">
+                        <AiOutlineLogin />
+                        <Link href="/login">
+                          <a>donor login</a>
+                        </Link>
+                      </li>
+                    </>
+                  )}
+
                   <li className="menuitem">
                     <FaHandHoldingWater />
                     <Link href="/request">
@@ -119,10 +124,14 @@ const Menu = () => {
                       <a>My donor list </a>
                     </Link>
                   </li>
-                  {/* <li className="menuitem">
-                  <FiLogOut/>
-                  <button>Log Out</button>
-                </li> */}
+                  {userinfo && (
+                    <>
+                      <li className="menuitem">
+                        <FiLogOut />
+                        <button onClick={logout}>Log Out</button>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </nav>
             </div>

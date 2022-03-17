@@ -48,9 +48,8 @@ const Logins = () => {
           toast.error(common);
         }
       } else {
-        cookie.set("authToken", result.authToken)
+        cookie.set("authToken", result.authToken);
         router.push("/");
-      
       }
     } catch (error) {
       console.log(error);
@@ -112,11 +111,13 @@ const Logins = () => {
                 {error.password ? error.password?.msg : "Enter Password"}
               </label>
             </div>
-            <Link href="/forgot">
-              <a className=" text-[15px] color3 mt-1 block text-right hover:underline">
-                Forgot Password?
-              </a>
-            </Link>
+            <div className="text-right">
+              <Link href="/forgot">
+                <a className="text-[15px] color3 mt-1  hover:underline">
+                  Forgot Password?
+                </a>
+              </Link>
+            </div>
 
             <button type="submit" className="singBtn">
               {logLoad ? "..." : "Login"}

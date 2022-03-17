@@ -7,7 +7,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Toaster />
-
       <Component {...pageProps} />
     </>
   );

@@ -7,21 +7,10 @@ const {
   addUserValidators,
   addUserValidationHandler,
 } = require("../middleware/users/userValidatot");
-const {
-  checkLogin,
-  redirectLoggedIn,
-} = require("../middleware/common/checkLogin");
 
 const router = express.Router();
 
 // add user
-router.post(
-  "/",
-  // checkLogin,
-  // redirectLoggedIn,
-  addUserValidators,
-  addUserValidationHandler,
-  addUser
-);
+router.post("/", addUserValidators, addUserValidationHandler, addUser);
 
 module.exports = router;
