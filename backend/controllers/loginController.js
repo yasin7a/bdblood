@@ -6,6 +6,24 @@ const createError = require("http-errors");
 // internal imports
 const User = require("../models/Donar");
 
+// do logged in user
+
+async function loggedIn(req, res) {
+  try {
+    const donor = await User.findById(req.user, {
+      name: 1,
+      email: 1,
+      phone: 1,
+      gender: 1,
+      bloodgp: 1,
+      location: 1,
+    });
+    return res.status(200).json({ donor });
+  } catch (error) {
+    return res.status(500).send("Server error");
+  }
+}
+
 // do login
 async function login(req, res, next) {
   try {
@@ -63,4 +81,5 @@ async function logout(req, res) {
 module.exports = {
   login,
   logout,
+  loggedIn,
 };

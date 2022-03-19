@@ -6,6 +6,7 @@ const cors = require("cors");
 // internal imports
 const usersRouter = require("./router/usersRouter");
 const loginRouter = require("./router/loginRouter");
+const DonarRoute = require("./router/DonarRoute");
 const {
   notFoundHandler,
   errorHandler,
@@ -42,6 +43,7 @@ server.use(cookieParser(process.env.COOKIE_SECRET));
 
 server.use("/api/register", usersRouter);
 server.use("/api/login", loginRouter);
+server.use("/api/donars", DonarRoute);
 
 // 404 not found handler
 server.use(notFoundHandler);

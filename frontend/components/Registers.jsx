@@ -92,7 +92,9 @@ const Registers = () => {
       if (result.errors) {
         setError(result.errors);
       } else {
+        let msg = Object.values(result.message);
         cookie.set("authToken", result.authToken);
+        toast.success(msg);
         router.push("/");
       }
     } catch (error) {
