@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useLayoutEffect } from "react";
 import { useRouter } from "next/router";
 import SignHeader from "./SignHeader";
 import Link from "next/link";
@@ -56,6 +56,16 @@ const Logins = () => {
     }
     setLogLoad(false);
   };
+  // useLayoutEffect(() => {
+  //   if (true) {
+  //     router.push('/');
+  //   }
+  // }, [router]);
+
+
+
+
+
   return (
     <>
       <SignHeader />

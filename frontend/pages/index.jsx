@@ -12,9 +12,3 @@ export default function Home({ donorData }) {
     </>
   );
 }
-
-// export async function getServerSideProps() {
-//   const res = await fetch("http://localhost:4000/demoitem");
-//   const data = await res.json();
-//   return { props: { donorData: data } };
-// }

@@ -13,7 +13,7 @@ const donarSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    number: {
+    phone: {
       type: String,
       required: true,
       trim: true,

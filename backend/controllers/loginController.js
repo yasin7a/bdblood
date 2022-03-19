@@ -11,7 +11,7 @@ async function login(req, res, next) {
   try {
     // find a user who has this email/number
     const user = await User.findOne({
-      $or: [{ email: req.body.username }, { number: req.body.username }],
+      $or: [{ email: req.body.username }, { phone: req.body.username }],
     });
     if (user && user._id) {
       const isValidPassword = await bcrypt.compare(

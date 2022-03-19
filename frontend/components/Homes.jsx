@@ -3,11 +3,7 @@ import Header from "./Header";
 import MapBar from "./MapBar";
 import Map from "./Map";
 import cookie from "js-cookie";
-import { useRouter } from "next/router";
-
 const Homes = ({ donorData }) => {
-  const router = useRouter();
-
   const geocoderContainerRef = useRef();
   const [select, SetSelect] = useState("");
   const [userinfo, setUserInfo] = useState(null);
@@ -18,7 +14,6 @@ const Homes = ({ donorData }) => {
   let handleToggleList = () => {
     setToggle(!toggle);
   };
-
   useEffect(() => {
     try {
       const getUsers = async () => {
@@ -33,11 +28,6 @@ const Homes = ({ donorData }) => {
         });
         let data = await res.json();
         setUserInfo(data.donor);
-        if (data.donor) {
-          // if (router.pathname === "/login" || router.pathname === "/register") {
-          //   router.replace("/");
-          // }
-        }
       };
 
       if (cookie.get("authToken")) {
@@ -47,7 +37,6 @@ const Homes = ({ donorData }) => {
       console.log(error);
     }
   }, []);
-
   return (
     <>
       <div className="w-full h-screen overflow-hidden">
