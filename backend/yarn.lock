@@ -452,6 +452,13 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
+email-check@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/email-check/-/email-check-1.1.0.tgz#01c5765a015c2311f46321dc068ac68a23116f68"
+  integrity sha1-AcV2WgFcIxH0YyHcBorGiiMRb2g=
+  dependencies:
+    js-promisify "1.0.1"
+
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
@@ -835,6 +842,11 @@ is-yarn-global@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.3.0.tgz#d502d3382590ea3004893746754c89139973e232"
   integrity sha512-VjSeb/lHmkoyd8ryPVIKvOCn4D1koMqY+vqyjjUfc3xyKtP4dYOxM44sZrnqQSzSds3xyOrUTLTC9LVCVgLngw==
+
+js-promisify@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/js-promisify/-/js-promisify-1.0.1.tgz#c47e18bc4196e492248c9d1a663701ade1ee3dca"
+  integrity sha1-xH4YvEGW5JIkjJ0aZjcBreHuPco=
 
 json-buffer@3.0.0:
   version "3.0.0"

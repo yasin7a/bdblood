@@ -1,6 +1,7 @@
 // external imports
 const { check, body, validationResult } = require("express-validator");
 const createError = require("http-errors");
+const emailCheck = require("email-check");
 
 // internal imports
 const User = require("../../models/Donar");
@@ -26,7 +27,26 @@ const addUserValidators = [
       } catch (err) {
         throw createError(err.message);
       }
+    })
+    .custom((value) => {
+      if (!value.includes("gmail")) {
+        throw createError("Must be a gmail");
+      }
+      return true;
+    })
+    .custom(async (value) => {
+      try {
+        let iSvalid = await emailCheck(value);
+        if (!iSvalid) {
+          throw createError("Email dosen't exists!");
+        }
+      } catch (err) {
+        throw createError("Email dosen't exists!");
+      }
+
+      return true;
     }),
+
   check("phone")
     .isMobilePhone("bn-BD")
     .withMessage("Mobile number must be BD number")
@@ -44,21 +64,18 @@ const addUserValidators = [
     .isLength({ min: 6 })
     .withMessage("At least 6 characters is required"),
   check("confirmPassword")
-  .notEmpty()
-  .withMessage("Confirm password is Requiered")
-  .custom((value, { req }) => {
-    if (value !== req.body.password) {
-      throw createError("Confirmation does not match");
-    }
-    return true;
-  }),
+    .notEmpty()
+    .withMessage("Confirm password is Requiered")
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw createError("Confirmation does not match");
+      }
+      return true;
+    }),
   check("gender").notEmpty().withMessage("Gender is Requiered"),
   check("bloodgp").notEmpty().withMessage("Blood Group is Requiered"),
 
-  check("location")
-    .notEmpty()
-    .withMessage("Location is Requiered")
-    .trim(),
+  check("location").notEmpty().withMessage("Location is Requiered").trim(),
   check("latitude")
     .isLength({ min: 3 })
     .withMessage("Latitude is Requiered")
