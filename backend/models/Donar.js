@@ -43,6 +43,12 @@ const donarSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+
+    verified: {
+      type: Boolean,
+      require: true,
+      default: false,
+    },
   },
   {
     timestamps: true,

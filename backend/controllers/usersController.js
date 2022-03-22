@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 
 // internal imports
 const User = require("../models/Donar");
+const EmailToken = require("../models/VerificationToken");
+const { genOTP, sendMail } = require("../utils/sendMail");
 
 // add user
 async function addUser(req, res) {
@@ -25,6 +27,20 @@ async function addUser(req, res) {
       const authToken = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRY,
       });
+
+      // ====================================
+
+      let OTP = genOTP();
+
+      let verifyToken = new EmailToken({
+        userId: user._id,
+        token: OTP,
+      });
+      await verifyToken.save();
+
+      await sendMail(user.email, "Verify email", OTP);
+
+      // ====================================
 
       // set cookie
       res.cookie(process.env.COOKIE_NAME, authToken, {

@@ -6,12 +6,13 @@ const cors = require("cors");
 // internal imports
 const usersRouter = require("./router/usersRouter");
 const loginRouter = require("./router/loginRouter");
+const donarRoute = require("./router/donarRoute");
+const verifyRoute = require("./router/verifyRoute");
 const {
   notFoundHandler,
   errorHandler,
 } = require("./middleware/common/errorHandler");
 const server = express();
-
 
 // app config
 dotenv.config();
@@ -43,6 +44,8 @@ server.use(cookieParser(process.env.COOKIE_SECRET));
 
 server.use("/api/register", usersRouter);
 server.use("/api/login", loginRouter);
+server.use("/api/donors", donarRoute);
+server.use("/api/verify", verifyRoute);
 
 // 404 not found handler
 server.use(notFoundHandler);
