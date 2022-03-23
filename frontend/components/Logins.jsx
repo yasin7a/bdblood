@@ -1,4 +1,4 @@
-import React, { useState,useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { useRouter } from "next/router";
 import SignHeader from "./SignHeader";
 import Link from "next/link";
@@ -48,8 +48,19 @@ const Logins = () => {
           toast.error(common);
         }
       } else {
-        cookie.set("authToken", result.authToken);
-        router.push("/");
+        if (!result.isVerified) {
+          toast.success(
+            "You are not a verified user! check email for verification"
+          );
+          toast.success(Object.values(result.message));
+          router.push({
+            pathname: "/verify-log",
+            query: { id: result.payload.userId },
+          });
+        } else {
+          cookie.set("authToken", result.authToken);
+          router.push("/");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -61,10 +72,6 @@ const Logins = () => {
   //     router.push('/');
   //   }
   // }, [router]);
-
-
-
-
 
   return (
     <>

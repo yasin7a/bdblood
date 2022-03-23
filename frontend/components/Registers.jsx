@@ -8,7 +8,6 @@ import {
   LoadCanvasTemplate,
   validateCaptcha,
 } from "../node_modules/react-simple-captcha/react-simple-captcha";
-import cookie from "js-cookie";
 
 const Registers = () => {
   const router = useRouter();
@@ -93,9 +92,11 @@ const Registers = () => {
         setError(result.errors);
       } else {
         let msg = Object.values(result.message);
-        cookie.set("authToken", result.authToken);
         toast.success(msg);
-        router.push("/");
+        router.push({
+          pathname: "/verify-reg",
+          query: { id: result.payload.userId },
+        });
       }
     } catch (error) {
       console.log(error);

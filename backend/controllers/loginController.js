@@ -5,7 +5,8 @@ const createError = require("http-errors");
 
 // internal imports
 const User = require("../models/Donar");
-
+const EmailToken = require("../models/VerificationToken");
+const { genOTP, sendMail } = require("../utils/sendMail");
 // do logged in user
 
 async function loggedIn(req, res) {
@@ -39,6 +40,31 @@ async function login(req, res, next) {
 
       if (isValidPassword) {
         const payload = { userId: user._id };
+
+        if (!user.verified) {
+          //token verify
+          let token = await EmailToken.findOne({ userId: user._id });
+          if (!token) {
+            let OTP = genOTP();
+            let verifyToken = new EmailToken({
+              userId: user._id,
+              token: OTP,
+            });
+            await verifyToken.save();
+            await sendMail(user.email, "Verify email", OTP);
+            res.status(200).json({
+              message: "OTP sent successfully!",
+              payload,
+            });
+          } else {
+            res.status(200).json({
+              message: "OTP is still valid! check your email",
+              payload,
+            });
+          }
+        }
+
+        if (res.headersSent) return;
         // generate token
         const authToken = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXPIRY,
@@ -54,6 +80,8 @@ async function login(req, res, next) {
         res.status(200).json({
           message: "Login successfully!",
           authToken,
+          isVerified: user.verified,
+          payload,
         });
       } else {
         throw createError("Login failed! Please try again.");

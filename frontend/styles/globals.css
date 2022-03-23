@@ -325,4 +325,7 @@
       transform: translateY(0);
     }
   }
+  .otpinp{
+    width:3rem !important;
+  }
 }

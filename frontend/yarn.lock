@@ -2814,6 +2814,11 @@ react-map-gl@6.1.12:
     resize-observer-polyfill "^1.5.1"
     viewport-mercator-project "^6.2.3 || ^7.0.2"
 
+react-otp-input@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-otp-input/-/react-otp-input-2.4.0.tgz#0f0a3de1d8c8d564e2e4fbe5d6b7b56e29e3a6e6"
+  integrity sha512-AIgl7u4sS9BTNCxX1xlaS5fPWay/Zml8Ho5LszXZKXrH1C/TiFsTQGmtl13UecQYO3mSF3HUzG2rrDf0sjEFmg==
+
 react-simple-captcha@^8.2.6:
   version "8.2.6"
   resolved "https://registry.yarnpkg.com/react-simple-captcha/-/react-simple-captcha-8.2.6.tgz#20370b019d67f8eabccfb5f63f67756dca0b2cf5"

@@ -35,7 +35,7 @@ async function verifyToken(req, res) {
     await EmailToken.findByIdAndDelete(token._id);
     await user.save();
     res.status(200).json({
-      message: "Token matched successfully!",
+      message: "Email confirmation successfully done!",
     });
   } catch (err) {
     res.status(500).json({
