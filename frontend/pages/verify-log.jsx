@@ -35,14 +35,14 @@ const Verify = () => {
       const result = await res.json();
 
       if (result.errors) {
-        let errors = Object.values(result.errors);
-        if (errors[0]) {
-          toast.error(errors[0].msg);
+        if (result.errors.otp) {
+          let err = Object.values(result.errors.otp);
+          toast.error(err[1]);
         }
-        if (errors[1].msg) {
-          toast.error(errors[1].msg);
+        if (result.errors.userId) {
+          let err = Object.values(result.errors.userId);
+          toast.error(err[1]);
         }
-
         if (result.errors.common) {
           let common = Object.values(result.errors.common);
           toast.error(common);

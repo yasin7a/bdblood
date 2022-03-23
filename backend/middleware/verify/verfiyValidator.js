@@ -1,5 +1,6 @@
 const { check, validationResult } = require("express-validator");
 const User = require("../../models/Donar");
+const createError = require("http-errors");
 
 const doVerifyValidators = [
   check("otp")
@@ -18,7 +19,7 @@ const doVerifyValidators = [
           throw createError("invalid user info");
         }
       } catch (err) {
-        throw createError(err.message);
+        throw createError("invalid user info");
       }
     }),
 ];
