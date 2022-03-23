@@ -12,6 +12,7 @@ const Verify = () => {
   const userId = useRef();
   let handleChange = (otp) => setOTP(otp);
   const [verLoad, setverLoad] = useState(false);
+  const [reSendLoad, setreSendLoad] = useState(false);
 
   let handleSubmit = async (event) => {
     event.preventDefault();
@@ -59,6 +60,34 @@ const Verify = () => {
     }
     setverLoad(false);
   };
+
+  let resendOTP = async () => {
+    setreSendLoad(true)
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER}/api/resendOTPmail`,
+      {
+        body: JSON.stringify({
+          userId: userId.current.value,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        credentials: "include",
+      }
+    );
+
+    const result = await res.json();
+    if (result.errors) {
+      let common = Object.values(result.errors.common);
+      toast.error(common);
+    } else {
+      let msg = Object.values(result.message);
+      toast.success(msg);
+    }
+    setreSendLoad(false)
+  };
+
   return (
     <>
       <Head>
@@ -93,6 +122,16 @@ const Verify = () => {
               {verLoad ? "..." : "Submit"}
             </button>
           </form>
+          {reSendLoad ? (
+            "..."
+          ) : (
+            <button
+              className="text-[15px] color3 mt-1  hover:underline"
+              onClick={resendOTP}
+            >
+              Re-send OTP?
+            </button>
+          )}
         </div>
       </div>
     </>
