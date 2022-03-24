@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "js-cookie": "^3.0.1",
+    "jwt-decode": "^3.1.2",
     "next": "12.1.0",
     "nextjs-progressbar": "^0.0.14",
     "nookies": "^2.5.2",

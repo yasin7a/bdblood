@@ -5,17 +5,18 @@ const checkLogin = (req, res, next) => {
     Object.keys(req.signedCookies).length > 0 ? req.signedCookies : null;
   const authHeader = req.headers.authorization;
   const authToken = authHeader.split(" ")[1];
-
-  if (cookieToken && authToken) {
-    try {
+  try {
+    if (cookieToken && authToken) {
       const { userId } = jwt.verify(authToken, process.env.JWT_SECRET);
 
       req.user = userId;
       next();
-    } catch (err) {
+    } else {
+      console.log("Unauthorized");
       res.status(401).send("Unauthorized");
     }
-  } else {
+  } catch (err) {
+    console.log("Unauthorized");
     res.status(401).send("Unauthorized");
   }
 };

@@ -7,7 +7,7 @@ const { genOTP, sendMail } = require("../utils/sendMail");
 async function resendOTPmail(req, res) {
   const { userId } = req.body;
   try {
-    if (!(userId || otp.trim())) {
+    if (!(userId)) {
       throw createError("Verify failed! Please try again.");
     }
     if (!isValidObjectId(userId)) {
