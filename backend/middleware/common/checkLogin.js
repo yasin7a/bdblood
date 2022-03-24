@@ -7,10 +7,14 @@ const checkLogin = (req, res, next) => {
   const authToken = authHeader?.split(" ")[1];
   if (cookieToken && authToken) {
     try {
+      let token68 = cookieToken[process.env.COOKIE_NAME];
+      const { userId: token0 } = jwt.verify(token68, process.env.COOKIE_SECRET);
       const { userId } = jwt.verify(authToken, process.env.JWT_SECRET);
 
-      req.user = userId;
-      next();
+      if (token0 && userId) {
+        req.user = userId;
+        next();
+      }
     } catch (err) {
       console.log("Unauthorized");
       res.status(500).json({
