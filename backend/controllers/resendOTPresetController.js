@@ -1,10 +1,10 @@
 const createError = require("http-errors");
 const { isValidObjectId } = require("mongoose");
 const User = require("../models/Donar");
-const EmailToken = require("../models/VerificationToken");
+const ResetToken = require("../models/ResetToken");
 const { genOTP, sendMail } = require("../utils/sendMail");
 
-async function resendOTPmail(req, res) {
+async function resendOTPreset(req, res) {
   const { userId } = req.body;
   try {
     if (!(userId || otp.trim())) {
@@ -18,25 +18,20 @@ async function resendOTPmail(req, res) {
     if (!user) {
       throw createError("User not valid! Please try again.");
     }
-    if (user.verified) {
-      throw createError("Already Verified! Please try again.");
-    }
-
-    let token = await EmailToken.findOne({ userId: user._id });
-    await EmailToken.findByIdAndDelete(token._id);
+ 
+    let token = await ResetToken.findOne({ userId: user._id });
+    await ResetToken.findByIdAndDelete(token._id);
 
     let OTP = genOTP();
-    let verifyToken = new EmailToken({
+    let verifyToken = new ResetToken({
       userId: user._id,
       token: OTP,
     });
     await verifyToken.save();
-    await sendMail(user.email, "re-send Verify email", OTP);
- 
+    await sendMail(user.email, "re-send reset password email", OTP);
 
- 
     res.status(200).json({
-      message: "Resend OTP successfull!",
+      message: "Resend reset password OTP successfull!",
     });
   } catch (err) {
     res.status(500).json({
@@ -49,4 +44,4 @@ async function resendOTPmail(req, res) {
   }
 }
 
-module.exports = resendOTPmail;
+module.exports = resendOTPreset;

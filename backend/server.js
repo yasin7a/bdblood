@@ -10,6 +10,9 @@ const donarRoute = require("./router/donarRoute");
 const regVerifyRoute = require("./router/regVerifyRoute");
 const logVerifyRoute = require("./router/logVerifyRoute");
 const resendOTPRoute = require("./router/resendOTPRoute");
+const forgotPasswordRoute = require("./router/forgotPasswordRoute");
+const resetPasswordRoute = require("./router/resetPasswordRoute");
+const resendOTPresetRoute = require("./router/resendOTPresetRoute");
 const {
   notFoundHandler,
   errorHandler,
@@ -50,6 +53,9 @@ server.use("/api/donors", donarRoute);
 server.use("/api/reg-verify", regVerifyRoute);
 server.use("/api/log-verify", logVerifyRoute);
 server.use("/api/resendOTPmail", resendOTPRoute);
+server.use("/api/forgotPassword", forgotPasswordRoute);
+server.use("/api/resetPassword", resetPasswordRoute);
+server.use("/api/resendOTPreset", resendOTPresetRoute);
 
 // 404 not found handler
 server.use(notFoundHandler);

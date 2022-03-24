@@ -129,7 +129,7 @@ const Logins = () => {
               </label>
             </div>
             <div className="text-right">
-              <Link href="/forgot">
+              <Link href="/forgot-password">
                 <a className="text-[15px] color3 mt-1  hover:underline">
                   Forgot Password?
                 </a>

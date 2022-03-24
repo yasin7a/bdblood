@@ -10,7 +10,6 @@ const {
 const { checkLogin } = require("../middleware/common/checkLogin");
 
 const router = express.Router();
-const User = require("../models/Donar");
 
 // process login
 
