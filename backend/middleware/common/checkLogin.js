@@ -4,20 +4,24 @@ const checkLogin = (req, res, next) => {
   let cookieToken =
     Object.keys(req.signedCookies).length > 0 ? req.signedCookies : null;
   const authHeader = req.headers.authorization;
-  const authToken = authHeader.split(" ")[1];
-  try {
-    if (cookieToken && authToken) {
+  const authToken = authHeader?.split(" ")[1];
+  if (cookieToken && authToken) {
+    try {
       const { userId } = jwt.verify(authToken, process.env.JWT_SECRET);
 
       req.user = userId;
       next();
-    } else {
+    } catch (err) {
       console.log("Unauthorized");
-      res.status(401).send("Unauthorized");
+      res.status(500).json({
+        error: "Authetication failure!",
+      });
     }
-  } catch (err) {
+  } else {
     console.log("Unauthorized");
-    res.status(401).send("Unauthorized");
+    res.status(500).json({
+      error: "Authetication failure!",
+    });
   }
 };
 

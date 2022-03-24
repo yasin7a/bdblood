@@ -36,7 +36,7 @@ const Header = ({ geocoderContainerRef, userinfo }) => {
       let data = await res.json();
       console.log(data.msg);
       cookie.remove("authToken");
-      await router.push("/");
+      await router.push("/login");
       router.reload();
 
     }

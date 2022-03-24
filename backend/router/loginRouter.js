@@ -18,6 +18,6 @@ router.get("/", checkLogin, loggedIn);
 router.post("/", doLoginValidators, doLoginValidationHandler, login);
 
 // logout
-router.delete("/", logout);
+router.delete("/", checkLogin,logout);
 
 module.exports = router;
