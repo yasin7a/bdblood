@@ -89,8 +89,8 @@ const Maps = ({ geocoderContainerRef, donorData }) => {
               return (
                 <div key={i}>
                   <Marker
-                    latitude={donor.latitude}
-                    longitude={donor.longitude}
+                    latitude={Number(donor.latitude)}
+                    longitude={Number(donor.longitude)}
                     offsetLeft={-3.5 * viewport.zoom}
                     offsetTop={-7 * viewport.zoom}
                   >
@@ -98,8 +98,8 @@ const Maps = ({ geocoderContainerRef, donorData }) => {
                       onClick={() =>
                         handleMarkerClick(
                           donor._id,
-                          donor.latitude,
-                          donor.longitude
+                          Number(donor.latitude),
+                          Number(donor.longitude)
                         )
                       }
                       style={{
@@ -112,8 +112,8 @@ const Maps = ({ geocoderContainerRef, donorData }) => {
                   </Marker>
                   {donor._id === currentPlaceId && (
                     <Popup
-                      latitude={donor.latitude}
-                      longitude={donor.longitude}
+                      latitude={Number(donor.latitude)}
+                      longitude={Number(donor.longitude)}
                       closeButton={true}
                       closeOnClick={false}
                       anchor="top"
@@ -122,7 +122,7 @@ const Maps = ({ geocoderContainerRef, donorData }) => {
                       <div className="p-2 bg-white mx-w-[10rem] color3">
                         <h3 className=" text-[15px] ">Name: {donor.name}</h3>
                         <p className=" text-[14px] mt-1.5">
-                          Address: {donor.address}
+                          Address: {donor.location}
                         </p>
                         <p className=" text-[14px] mt-1.5">
                           Distance: {donor.distance} away from you

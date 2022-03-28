@@ -318,7 +318,7 @@ const Registers = () => {
                 type="radio"
                 id="A+"
                 name="bloodgp"
-                value="A+"
+                value="Apos"
                 onChange={changeHandler}
               />
               <label htmlFor="A+">A+</label>
@@ -326,7 +326,7 @@ const Registers = () => {
                 type="radio"
                 id="A−"
                 name="bloodgp"
-                value="A−"
+                value="Aneg"
                 onChange={changeHandler}
               />
               <label htmlFor="A−">A−</label>
@@ -334,7 +334,7 @@ const Registers = () => {
                 type="radio"
                 id="B+"
                 name="bloodgp"
-                value="B+"
+                value="Bpos"
                 onChange={changeHandler}
               />
               <label htmlFor="B+">B+</label>
@@ -342,7 +342,7 @@ const Registers = () => {
                 type="radio"
                 id="B−"
                 name="bloodgp"
-                value="B−"
+                value="Bneg"
                 onChange={changeHandler}
               />
               <label htmlFor="B−">B−</label>
@@ -351,7 +351,7 @@ const Registers = () => {
                 type="radio"
                 id="AB+"
                 name="bloodgp"
-                value="AB+"
+                value="ABpos"
                 onChange={changeHandler}
               />
               <label htmlFor="AB+">AB+</label>
@@ -359,7 +359,7 @@ const Registers = () => {
                 type="radio"
                 id="AB−"
                 name="bloodgp"
-                value="AB−"
+                value="ABneg"
                 onChange={changeHandler}
               />
               <label htmlFor="AB−">AB−</label>
@@ -367,7 +367,7 @@ const Registers = () => {
                 type="radio"
                 id="O+"
                 name="bloodgp"
-                value="O+"
+                value="Opos"
                 onChange={changeHandler}
               />
               <label htmlFor="O+">O+</label>
@@ -375,7 +375,7 @@ const Registers = () => {
                 type="radio"
                 id="O−"
                 name="bloodgp"
-                value="O−"
+                value="Oneg"
                 onChange={changeHandler}
               />
               <label htmlFor="O−">O−</label>

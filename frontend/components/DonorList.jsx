@@ -28,7 +28,7 @@ const DonorList = ({ donor }) => {
       >
         <div className="p-2">
           <h3 className="color1 text-[15px] ">Name: {donor.name}</h3>
-          <p className="color1 text-[14px] mt-1.5">Address: {donor.address}</p>
+          <p className="color1 text-[14px] mt-1.5">Address: {donor.location}</p>
           <p className="color2 text-[14px] mt-1.5">
             Distance: {donor.distance} away from you
           </p>
@@ -51,7 +51,7 @@ const DonorList = ({ donor }) => {
           onClick={handleToggle}
         >
           <h3 className="address text-[15px] color1 truncate max-w-[10.6rem]">
-            {donor.address}
+            {donor.location}
           </h3>
           <div className="flex items-center">
             <p className="name text-[13px] inline-block color1 truncate max-w-[5rem]">
@@ -59,7 +59,7 @@ const DonorList = ({ donor }) => {
             </p>
 
             <span className="distance text-[11px] color2 pl-2 pt-[3px]">
-              • {donor.distance} Away
+              • {donor.distance ? "" : 0} Away
             </span>
           </div>
         </div>

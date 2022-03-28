@@ -3,9 +3,38 @@ const createError = require("http-errors");
 
 async function DonarData(req, res) {
   try {
-    const allDonar = await User.find({}).select(
-      "-_id -password -createdAt -updatedAt -__v"
-    );
+    let filter = {};
+
+    if (req.query.bloodgp) {
+      filter = { bloodgp: req.query.bloodgp };
+    }
+
+    const page = parseInt(req.query.page);
+    const limit = 10;
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const results = {};
+
+    if (endIndex < (await User.countDocuments().exec())) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+
+    const allDonar = await User.find(filter)
+      .select("-_id -password -createdAt -updatedAt -__v")
+      .limit(limit)
+      .skip(startIndex)
+      .exec();
 
     if (allDonar) {
       res.status(200).json({

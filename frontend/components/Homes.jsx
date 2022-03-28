@@ -3,13 +3,11 @@ import Header from "./Header";
 import MapBar from "./MapBar";
 import Map from "./Map";
 import cookie from "js-cookie";
-const Homes = ({ donorData }) => {
+const Homes = () => {
   const geocoderContainerRef = useRef();
-  const [select, SetSelect] = useState("");
   const [userinfo, setUserInfo] = useState(null);
-  let selecBloodtHandler = (e) => {
-    SetSelect(e.target.value);
-  };
+  const [donarList, setdonarList] = useState(null);
+ 
   let [toggle, setToggle] = useState(true);
   let handleToggleList = () => {
     setToggle(!toggle);
@@ -37,6 +35,8 @@ const Homes = ({ donorData }) => {
       console.log(error);
     }
   }, []);
+
+
   return (
     <>
       <div className="w-full h-screen overflow-hidden">
@@ -51,19 +51,18 @@ const Homes = ({ donorData }) => {
               toggle ? "translate-y-full" : "translate-y-0"
             }`}
           >
-            {/* <MapBar
+            <MapBar
               geocoderContainerRef={geocoderContainerRef}
-              donorData={donorData}
-              selecBloodtHandler={selecBloodtHandler}
+              donorData={donarList}
               handleToggleList={handleToggleList}
               toggleIcon={toggle}
-            /> */}
+            />
           </div>
         </div>
         <div className="map w-full h-full fixed inset-0 z-0">
           {/* <Map
             geocoderContainerRef={geocoderContainerRef}
-            donorData={donorData}
+            donorData={donarList}
           /> */}
         </div>
       </div>
