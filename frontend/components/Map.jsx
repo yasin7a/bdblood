@@ -1,4 +1,5 @@
 import Link from "next/link";
+import axios from "axios";
 
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import ReactMapGL, {
@@ -10,8 +11,10 @@ import ReactMapGL, {
 import Geocoder from "react-map-gl-geocoder";
 import { MdLocationPin } from "react-icons/md";
 
-const Maps = ({ geocoderContainerRef, donorData }) => {
+const Maps = ({ geocoderContainerRef }) => {
   const ref3 = useRef();
+  const [items, setItems] = useState([]);
+  const [datalaoder, SetDataLoader] = useState(false);
 
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [viewport, setViewport] = useState({
@@ -20,6 +23,8 @@ const Maps = ({ geocoderContainerRef, donorData }) => {
     zoom: 10,
   });
   const mapRef = useRef();
+  let bounds = mapRef.current?.getMap()?.getBounds();
+
   const handleViewportChange = useCallback(
     (newViewport) => setViewport(newViewport),
     []
@@ -52,9 +57,28 @@ const Maps = ({ geocoderContainerRef, donorData }) => {
       document.body.removeEventListener("click", bodybubble);
     };
   }, []);
-
+  useEffect(() => {
+    SetDataLoader(true);
+    axios({
+      method: "GET",
+      url: `${process.env.NEXT_PUBLIC_SERVER}/api/donors/map`,
+      params: {
+        bl_latitude: bounds?._sw.lat,
+        bl_longitude: bounds?._ne.lng,
+        tr_longitude: bounds?._sw.lng,
+        tr_latitude: bounds?._ne.lat,
+      },
+    })
+      .then((res) => {
+        setItems(res.data.donarMap);
+        console.log(res.data.donarMap);
+        SetDataLoader(false);
+      })
+      .catch((e) => console.log(e));
+  }, [bounds?._ne.lat, bounds?._ne.lng, bounds?._sw.lat, bounds?._sw.lng]);
   return (
     <>
+      {datalaoder && "loading..."}
       <ReactMapGL
         ref={mapRef}
         {...viewport}
@@ -63,7 +87,6 @@ const Maps = ({ geocoderContainerRef, donorData }) => {
         mapStyle="mapbox://styles/mapbox/streets-v9"
         onViewportChange={handleViewportChange}
         mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAP_TOKEN}
-        // onClick={(e) => console.log(e)}
       >
         <Geocoder
           mapRef={mapRef}
@@ -82,10 +105,10 @@ const Maps = ({ geocoderContainerRef, donorData }) => {
         />
         <FullscreenControl />
         <div ref={ref3}>
-          {donorData?.length === 0 ? (
+          {items?.length === 0 ? (
             <div>Loading...</div>
           ) : (
-            donorData?.map((donor, i) => {
+            items?.map((donor, i) => {
               return (
                 <div key={i}>
                   <Marker
@@ -125,7 +148,7 @@ const Maps = ({ geocoderContainerRef, donorData }) => {
                           Address: {donor.location}
                         </p>
                         <p className=" text-[14px] mt-1.5">
-                          Distance: {donor.distance} away from you
+                          {/* Distance: {donor.distance} away from you */}
                         </p>
                         <p className=" text-[14px] mt-1.5">
                           Blood-group: {donor.bloodgp}

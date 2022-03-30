@@ -6,7 +6,6 @@ import cookie from "js-cookie";
 const Homes = () => {
   const geocoderContainerRef = useRef();
   const [userinfo, setUserInfo] = useState(null);
-  const [donarList, setdonarList] = useState(null);
  
   let [toggle, setToggle] = useState(true);
   let handleToggleList = () => {
@@ -51,19 +50,17 @@ const Homes = () => {
               toggle ? "translate-y-full" : "translate-y-0"
             }`}
           >
-            <MapBar
+            {/* <MapBar
               geocoderContainerRef={geocoderContainerRef}
-              donorData={donarList}
               handleToggleList={handleToggleList}
               toggleIcon={toggle}
-            />
+            /> */}
           </div>
         </div>
         <div className="map w-full h-full fixed inset-0 z-0">
-          {/* <Map
+          <Map
             geocoderContainerRef={geocoderContainerRef}
-            donorData={donarList}
-          /> */}
+          />
         </div>
       </div>
     </>

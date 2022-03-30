@@ -55,4 +55,32 @@ async function DonarData(req, res) {
   }
 }
 
-module.exports = DonarData;
+async function DonarDataMap(req, res) {
+  try {
+    const bl_latitude = req.query.bl_latitude;
+    const bl_longitude = req.query.bl_longitude;
+    const tr_longitude = req.query.tr_longitude;
+    const tr_latitude = req.query.tr_latitude;
+    const users = await User.find();
+    const donarMap = users.filter((user) => {
+      return (
+        bl_latitude <= Number(user.latitude) &&
+        Number(user.latitude) <= tr_latitude &&
+        tr_longitude <= Number(user.longitude) &&
+        Number(user.longitude) <= bl_longitude
+      );
+    });
+
+    res.status(200).json({ donarMap });
+  } catch (err) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: err.message,
+        },
+      },
+    });
+  }
+}
+
+module.exports = { DonarData, DonarDataMap };
