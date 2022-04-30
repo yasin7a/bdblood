@@ -6,7 +6,7 @@ import cookie from "js-cookie";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import decode from "jwt-decode";
-const Header = ({ geocoderContainerRef, userinfo }) => {
+const Header = ({  userinfo,setCoords }) => {
   const router = useRouter();
 
   let logout = async () => {
@@ -54,7 +54,7 @@ const Header = ({ geocoderContainerRef, userinfo }) => {
     <>
       <header className=" relative z-50 max-w-md flex justify-between px-3 m-2 py-[5px] items-center bg-white rounded-md shadow-[0_5px_10px_-8px_rgba(0,0,0,0.3)]">
         <Menu userinfo={userinfo} logout={logout} />
-        <SearchBar geocoderContainerRef={geocoderContainerRef} />
+        <SearchBar setCoords={setCoords}  />
         <Profile logout={logout} userinfo={userinfo} />
       </header>
     </>

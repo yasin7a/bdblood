@@ -328,4 +328,8 @@
   .otpinp{
     width:3rem !important;
   }
+
+.menu + div {
+  width:100%
+}
 }

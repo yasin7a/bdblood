@@ -7,7 +7,6 @@ export default function Home() {
       <Head>
         <title>Blood Connection</title>
       </Head>
-
       <Homes />
     </>
   );

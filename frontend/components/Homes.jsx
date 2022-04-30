@@ -4,9 +4,9 @@ import MapBar from "./MapBar";
 import Map from "./Map";
 import cookie from "js-cookie";
 const Homes = () => {
-  const geocoderContainerRef = useRef();
   const [userinfo, setUserInfo] = useState(null);
- 
+  const [coords, setCoords] = useState({ lat: 23.8103, lng: 90.4125 });
+
   let [toggle, setToggle] = useState(true);
   let handleToggleList = () => {
     setToggle(!toggle);
@@ -35,32 +35,22 @@ const Homes = () => {
     }
   }, []);
 
-
   return (
     <>
       <div className="w-full h-screen overflow-hidden">
         <div className="flex flex-col h-screen justify-between">
-          <Header
-            geocoderContainerRef={geocoderContainerRef}
-            userinfo={userinfo}
-          />
+          <Header userinfo={userinfo} setCoords={setCoords} />
 
           <div
             className={`mapbar bg-gray-200 max-w-md  h-[30rem] p-2 border relative z-10 m-2 rounded border-slate-300 shadow-[0_5px_10px_-8px_rgba(0,0,0,0.3)] transition-transform duration-300 ease-out  ${
               toggle ? "translate-y-full" : "translate-y-0"
             }`}
           >
-            {/* <MapBar
-              geocoderContainerRef={geocoderContainerRef}
-              handleToggleList={handleToggleList}
-              toggleIcon={toggle}
-            /> */}
+            <MapBar handleToggleList={handleToggleList} toggleIcon={toggle} />
           </div>
-        </div>
-        <div className="map w-full h-full fixed inset-0 z-0">
-          <Map
-            geocoderContainerRef={geocoderContainerRef}
-          />
+          <div className="map w-full h-full fixed inset-0 z-0">
+            <Map coords={coords} setCoords={setCoords} />
+          </div>
         </div>
       </div>
     </>
